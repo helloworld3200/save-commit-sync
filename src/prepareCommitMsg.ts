@@ -294,9 +294,7 @@ export function _generateMsgWithOld(lines: string[], oldMsg: string) {
  *   the case of a hook flow without VS Code.
  */
 export function generateMsg(lines: string[], oldMsg?: string): string {
-  if (!oldMsg) {
-    return _newMsg(lines);
-  }
 
-  return _generateMsgWithOld(lines, oldMsg);
+  return "Commit";
+  
 }
