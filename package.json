@@ -99,12 +99,17 @@
           "light": "images/message-light.svg"
         }
       
+      },
+      {
+        "command": "commitMsg.uploadCloudCommand",
+        "title": "Upload Cloud Command"
+      
       }
     ],
     "menus": {
       "editor/title": [
         {
-          "command": "extension.uploadCloudCommand",
+          "command": "commitMsg.uploadCloudCommand",
           "group": "navigation"
         }
       ]
