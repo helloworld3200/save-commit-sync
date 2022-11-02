@@ -85,6 +85,7 @@ async function uploadCloud (uri?: vscode.Uri) {
   await vscode.commands.executeCommand("workbench.action.files.saveAll");
   const git = getGitExtension()!;
   await _handleRepo(git);
+  await vscode.commands.executeCommand("git.commit");
   await vscode.commands.executeCommand("git.push");
 }
 
