@@ -82,7 +82,10 @@ async function helloWorldTest (uri?: vscode.Uri) {
 
 async function uploadCloud (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Uploading changes to cloud...");
-  
+  await vscode.commands.executeCommand("workbench.action.files.saveAll");
+  const git = getGitExtension()!;
+  await _handleRepo(git);
+  await vscode.commands.executeCommand("git.push");
 }
 
 /**
@@ -105,6 +108,7 @@ export function activate(context: vscode.ExtensionContext) {
     uploadCloud);
   context.subscriptions.push(disposable);
   context.subscriptions.push(hwTest);
+  context.subscriptions.push(uploadCloudCommand);
 }
 
 // prettier-ignore
