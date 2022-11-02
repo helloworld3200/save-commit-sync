@@ -80,6 +80,11 @@ async function helloWorldTest (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Hello, world!");
 }
 
+async function uploadCloud (uri?: vscode.Uri) {
+  vscode.window.showInformationMessage("Uploading changes to cloud...");
+  
+}
+
 /**
  * Set up the extension activation.
  *
@@ -95,7 +100,9 @@ export function activate(context: vscode.ExtensionContext) {
     "commitMsg.helloWorldTest",
     helloWorldTest
   );
-
+  const uploadCloudCommand = vscode.commands.registerCommand(
+    "commitMsg.uploadCloudCommand",
+    uploadCloud);
   context.subscriptions.push(disposable);
   context.subscriptions.push(hwTest);
 }

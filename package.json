@@ -102,10 +102,9 @@
       }
     ],
     "menus": {
-      "scm/title": [
+      "editor/title": [
         {
-          "command": "commitMsg.autofill",
-          "when": "scmProvider == git",
+          "command": "extension.uploadCloudCommand",
           "group": "navigation"
         }
       ]
