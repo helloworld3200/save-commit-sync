@@ -76,6 +76,10 @@ async function _chooseRepoForAutofill(uri?: vscode.Uri) {
   }
 }
 
+async function helloWorldTest (uri?: vscode.Uri) {
+  vscode.window.showInformationMessage("Hello, world!");
+}
+
 /**
  * Set up the extension activation.
  *
@@ -87,8 +91,13 @@ export function activate(context: vscode.ExtensionContext) {
     "commitMsg.autofill",
     _chooseRepoForAutofill
   );
+  const hwTest = vscode.commands.registerCommand(
+    "commitMsg.helloWorldTest",
+    helloWorldTest
+  );
 
   context.subscriptions.push(disposable);
+  context.subscriptions.push(hwTest);
 }
 
 // prettier-ignore

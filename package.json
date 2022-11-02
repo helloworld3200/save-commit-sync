@@ -84,11 +84,21 @@
     "commands": [
       {
         "command": "commitMsg.autofill",
-        "title": "Auto Commit Message",
+        "title": "Autofill Commit Message",
         "icon": {
           "dark": "images/message.svg",
           "light": "images/message-light.svg"
         }
+      
+      },
+      {
+        "command": "commitMsg.helloWorldTest",
+        "title": "Hello World Test",
+        "icon": {
+          "dark": "images/message.svg",
+          "light": "images/message-light.svg"
+        }
+      
       }
     ],
     "menus": {
