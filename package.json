@@ -78,7 +78,9 @@
     "theme": "light"
   },
   "activationEvents": [
-    "onCommand:commitMsg.autofill"
+    "onCommand:commitMsg.autofill",
+    "onCommand:commitMsg.helloWorldTest",
+    "onCommand:commitMsg.uploadCloudCommand"
   ],
   "contributes": {
     "commands": [
@@ -98,13 +100,16 @@
           "dark": "images/message.svg",
           "light": "images/message-light.svg"
         }
-      
       },
       {
         "command": "commitMsg.uploadCloudCommand",
-        "title": "Upload Cloud Command"
-      
+        "title": "Upload to Cloud",
+        "icon": {
+          "dark": "images/message.svg",
+          "light": "images/message-light.svg"
+        }
       }
+
     ],
     "menus": {
       "editor/title": [

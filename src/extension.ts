@@ -80,13 +80,13 @@ async function helloWorldTest (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Hello, world!");
 }
 
-async function uploadCloud (uri?: vscode.Uri) {
+function uploadCloud (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Uploading changes to cloud...");
-  await vscode.commands.executeCommand("workbench.action.files.saveAll");
+  vscode.commands.executeCommand("workbench.action.files.saveAll");
   const git = getGitExtension()!;
-  await _handleRepo(git);
-  await vscode.commands.executeCommand("git.commitAll");
-  await vscode.commands.executeCommand("git.push");
+  _handleRepo(git);
+  vscode.commands.executeCommand("git.commitAll");
+  vscode.commands.executeCommand("git.push");
 }
 
 /**
