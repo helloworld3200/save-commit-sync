@@ -89,11 +89,13 @@ async function sayNo () {
   console.log("Save-all unresolved (No)");
 }
 
+// Saves all files, autofills, commits all and syncs changes. For utility purposes.
+
 async function uploadCloud (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Uploading changes to cloud...");
   await vscode.workspace.saveAll().then(sayYes, sayNo);
   const git = await getGitExtension()!;
-  await _handleRepo(git);
+  await _chooseRepoForAutofill(uri);
   const repo = await git.repositories[0];
   const repoStatus = repo.status();
   await vscode.commands.executeCommand("git.commitAll");
@@ -107,17 +109,29 @@ async function uploadCloud (uri?: vscode.Uri) {
  * and run the autofill logic for a repo.
  */
 export function activate(context: vscode.ExtensionContext) {
+  
+  // Autofill command (almost same as original, just renamed in package.json file)
+
   const disposable = vscode.commands.registerCommand(
     "commitMsg.autofill",
     _chooseRepoForAutofill
   );
+
+  // Disposable hello world test
+
   const hwTest = vscode.commands.registerCommand(
     "commitMsg.helloWorldTest",
     helloWorldTest
   );
+  
+  // Fully save, commit and sync utility command
+
   const uploadCloudCommand = vscode.commands.registerCommand(
     "commitMsg.uploadCloudCommand",
     uploadCloud);
+
+  // Pushes commands to subscriptions
+
   context.subscriptions.push(disposable);
   context.subscriptions.push(hwTest);
   context.subscriptions.push(uploadCloudCommand);
