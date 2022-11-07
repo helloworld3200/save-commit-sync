@@ -4,10 +4,11 @@
  * This sets up the VS Code extension's command entry-point and applies logic in
  * the prepareCommitMsg module to a target branch.
  */
+import { report } from "process";
 import * as vscode from "vscode";
 import { API } from "./api/git";
 import { makeAndFillCommitMsg } from "./autofill";
-import { getGitExtension } from "./gitExtension";
+import { getGitExtension,  getCommitMsg, setCommitMsg} from "./gitExtension";
 
 function _validateFoundRepos(git: API) {
   let msg = "";
@@ -80,13 +81,23 @@ async function helloWorldTest (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Hello, world!");
 }
 
-function uploadCloud (uri?: vscode.Uri) {
+async function sayYes () {
+  console.log("Save-all resolved (yes)");
+}
+
+async function sayNo () {
+  console.log("Save-all unresolved (No)");
+}
+
+async function uploadCloud (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Uploading changes to cloud...");
-  vscode.commands.executeCommand("workbench.action.files.saveAll");
-  const git = getGitExtension()!;
-  _handleRepo(git);
-  vscode.commands.executeCommand("git.commitAll");
-  vscode.commands.executeCommand("git.push");
+  await vscode.workspace.saveAll().then(sayYes, sayNo);
+  const git = await getGitExtension()!;
+  await _handleRepo(git);
+  const repo = await git.repositories[0];
+  const repoStatus = repo.status();
+  await vscode.commands.executeCommand("git.commitAll");
+  await vscode.commands.executeCommand("git.push");
 }
 
 /**
