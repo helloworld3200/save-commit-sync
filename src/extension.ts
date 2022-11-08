@@ -95,7 +95,7 @@ async function uploadCloud (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Uploading changes to cloud...");
   await vscode.workspace.saveAll().then(sayYes, sayNo);
   const git = await getGitExtension()!;
-  await _chooseRepoForAutofill(uri);
+  await vscode.commands.executeCommand("commitMsg.autofill");
   const repo = await git.repositories[0];
   const repoStatus = repo.status();
   await vscode.commands.executeCommand("git.commitAll");
