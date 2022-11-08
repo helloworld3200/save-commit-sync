@@ -97,7 +97,11 @@ async function uploadCloud (uri?: vscode.Uri) {
   const git = await getGitExtension()!;
   await vscode.commands.executeCommand("commitMsg.autofill");
   const repo = await git.repositories[0];
-  const repoStatus = repo.status();
+  const repoStatus = await repo.status();
+  const currentCommitMsg = getCommitMsg(repo);
+  while (currentCommitMsg === "") {
+    const currentCommitMsg = getCommitMsg(repo);
+  }
   await vscode.commands.executeCommand("git.commitAll");
   await vscode.commands.executeCommand("git.push");
 }
