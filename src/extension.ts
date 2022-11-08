@@ -82,25 +82,25 @@ async function helloWorldTest (uri?: vscode.Uri) {
 }
 
 async function sayYes () {
-  console.log("Save-all resolved (yes)");
+  console.log("Promise/Thenable resolved (yes)");
 }
 
 async function sayNo () {
-  console.log("Save-all unresolved (No)");
+  console.log("Promise/Thenable unresolved (No)");
 }
 
 // Saves all files, autofills, commits all and syncs changes. For utility purposes.
 
 async function uploadCloud (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Uploading changes to cloud...");
-  await vscode.workspace.saveAll().then(sayYes, sayNo);
+  await vscode.workspace.saveAll();
   const git = await getGitExtension()!;
-  await vscode.commands.executeCommand("commitMsg.autofill");
+  await vscode.commands.executeCommand("commitMsg.autofill").then(sayYes, sayNo);
   const repo = await git.repositories[0];
   const repoStatus = await repo.status();
-  const currentCommitMsg = getCommitMsg(repo);
+  const currentCommitMsg = await getCommitMsg(repo);
   while (currentCommitMsg === "") {
-    const currentCommitMsg = getCommitMsg(repo);
+    const currentCommitMsg = await getCommitMsg(repo);
   }
   await vscode.commands.executeCommand("git.commitAll");
   await vscode.commands.executeCommand("git.push");
