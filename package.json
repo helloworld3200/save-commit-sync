@@ -118,6 +118,12 @@
           "group": "navigation"
         }
       ]
-    }
+    },
+    "keybindings": [{
+      "command": "commitMsg.uploadCloudCommand",
+      "key": "ctrl+alt",
+      "mac": "cmd+alt",
+      "when": "editorTextFocus"
+    }]
   }
 }
