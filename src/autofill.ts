@@ -25,7 +25,7 @@ Try saving your files or stage any new (untracked) files.\
  */
 export async function makeAndFillCommitMsg(repository: Repository) {
   const fileChanges = await getChanges();
-
+  
   console.debug("diff-index:", fileChanges);
 
   if (!fileChanges.length) {
@@ -38,6 +38,5 @@ export async function makeAndFillCommitMsg(repository: Repository) {
 
   const newMsg = generateMsg(fileChanges, oldMsg);
   console.debug("New message: ", newMsg);
-
   setCommitMsg(repository, newMsg);
 }

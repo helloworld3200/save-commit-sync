@@ -67,7 +67,7 @@ async function _handleRepo(git: API) {
 async function _chooseRepoForAutofill(uri?: vscode.Uri) {
   const git = getGitExtension()!;
   _validateFoundRepos(git);
-
+  
   vscode.commands.executeCommand("workbench.view.scm");
 
   if (uri) {
@@ -75,6 +75,7 @@ async function _chooseRepoForAutofill(uri?: vscode.Uri) {
   } else {
     _handleRepo(git);
   }
+  console.log("in chooserepoforautofill");
 }
 
 async function helloWorldTest (uri?: vscode.Uri) {
@@ -93,15 +94,19 @@ async function sayNo () {
 
 async function uploadCloud (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Uploading changes to cloud...");
+  vscode.commands.executeCommand("workbench.view.scm");
+  
   await vscode.workspace.saveAll();
   const git = await getGitExtension()!;
-  await vscode.commands.executeCommand("commitMsg.autofill").then(sayYes, sayNo);
+  
+  await _handleRepo(git);
   const repo = await git.repositories[0];
   const repoStatus = await repo.status();
   const currentCommitMsg = await getCommitMsg(repo);
   while (currentCommitMsg === "") {
     const currentCommitMsg = await getCommitMsg(repo);
   }
+  
   await vscode.commands.executeCommand("git.commitAll");
   await vscode.commands.executeCommand("git.push");
 }

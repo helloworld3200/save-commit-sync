@@ -26,6 +26,7 @@ export function getCommitMsg(repository: Repository): string {
  */
 export function setCommitMsg(repository: Repository, msg: string) {
   repository.inputBox.value = msg;
+  console.log("Set value to: ",msg);
 }
 
 /**
