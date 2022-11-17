@@ -93,6 +93,8 @@ async function sayNo () {
 // Saves all files, autofills, commits all and syncs changes. For utility purposes.
 
 async function uploadCloud (uri?: vscode.Uri) {
+  console.log("in uploadcloud");
+  
   vscode.window.showInformationMessage("Uploading changes to cloud...");
   vscode.commands.executeCommand("workbench.view.scm");
   
@@ -106,9 +108,10 @@ async function uploadCloud (uri?: vscode.Uri) {
   while (currentCommitMsg === "") {
     const currentCommitMsg = await getCommitMsg(repo);
   }
-  
+
   await vscode.commands.executeCommand("git.commitAll");
   await vscode.commands.executeCommand("git.push");
+  
 }
 
 /**

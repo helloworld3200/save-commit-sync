@@ -121,9 +121,8 @@
     },
     "keybindings": [{
       "command": "commitMsg.uploadCloudCommand",
-      "key": "ctrl+alt",
-      "mac": "cmd+alt",
-      "when": "editorTextFocus"
+      "key": "ctrl+shift",
+      "mac": "cmd+alt"
     }]
   }
 }
