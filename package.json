@@ -1,5 +1,5 @@
 {
-  "name": "auto-commit-msg",
+  "name": "auto-commit-sync",
   "version": "0.25.0",
   "scripts": {
     "fmt:check": "prettier -c src",
@@ -44,11 +44,11 @@
     "vsce": "^2.9.1",
     "vscode-test": "^1.6.1"
   },
-  "displayName": "Auto Commit Message",
-  "description": "A VS Code extension to generate a smart commit message based on file changes",
-  "publisher": "MichaelCurrin",
+  "displayName": "Auto Commit Sync",
+  "description": "A VS Code extension to save, commit and sync - all at the same time!",
+  "publisher": "helloworld3200",
   "author": {
-    "name": "MichaelCurrin"
+    "name": "helloworld3200"
   },
   "license": "MIT",
   "homepage": "https://github.com/MichaelCurrin/auto-commit-msg#readme",
