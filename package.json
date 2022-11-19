@@ -51,11 +51,11 @@
     "name": "helloworld3200"
   },
   "license": "MIT",
-  "homepage": "https://github.com/MichaelCurrin/auto-commit-msg#readme",
-  "bugs": "https://github.com/MichaelCurrin/auto-commit-msg/issues",
+  "homepage": "https://github.com/helloworld3200/auto-commit-sync",
+  "bugs": "https://github.com/helloworld3200/auto-commit-sync/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MichaelCurrin/auto-commit-msg"
+    "url": "https://github.com/helloworld3200/auto-commit-sync"
   },
   "keywords": [
     "git",
