@@ -1,16 +1,9 @@
-# Auto Commit & Sync ⚙️ 🧙‍♂️ ✉️
+# Auto Commit & Sync
 > A VS Code extension to save, commit and sync at the same time. Uses code from MichaelCurrin/Auto-Commit-Message to generate commit messages.
 
 <!-- Badges mostly generated with https://michaelcurrin.github.io/badge-generator/#/ -->
 
-[![Node CI](https://github.com/MichaelCurrin/auto-commit-msg/workflows/Node%20CI/badge.svg)](https://github.com/MichaelCurrin/auto-commit-msg/actions?query=workflow:"Node+CI")
-[![CodeQL](https://github.com/MichaelCurrin/auto-commit-msg/workflows/CodeQL/badge.svg)](https://github.com/MichaelCurrin/auto-commit-msg/actions?query=workflow%3ACodeQL)
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license "Go to License section")
-[![Contributions - welcome](https://img.shields.io/badge/Contributions-welcome-blue)](/CONTRIBUTING.md "View contributing doc")
-
-![VS Code extension marketplace version](https://img.shields.io/visual-studio-marketplace/v/MichaelCurrin.auto-commit-msg)
-![VS Code extension installs](https://img.shields.io/visual-studio-marketplace/i/MichaelCurrin.auto-commit-msg)
-![VS Code extension rating](https://img.shields.io/visual-studio-marketplace/r/MichaelCurrin.auto-commit-msg)
 ![maintained - yes](https://img.shields.io/badge/maintained-yes-blue)
 
 Also, I don't _really_ know how to use github workflows or actions or whatever they're called, so don't trust the little icons above. It's residual from the original repository. Don't judge me!
