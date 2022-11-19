@@ -6,8 +6,6 @@
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license "Go to License section")
 ![maintained - yes](https://img.shields.io/badge/maintained-yes-blue)
 
-Also, I don't _really_ know how to use github workflows or actions or whatever they're called, so don't trust the little icons above. It's residual from the original repository. Don't judge me!
-
 ## Tutorial
 
 To run the main command (Upload to Cloud) which saves all, commits and syncs to github use either the the button on the top of the screen or the keybinding (ctrl and shift and s).
