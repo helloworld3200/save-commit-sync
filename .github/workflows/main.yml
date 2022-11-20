@@ -5,6 +5,9 @@ on:
     paths-ignore:
       - "docs/**"
       - README.md
+  schedule:
+    - cron: "26 0 * * 2"
+  workflow_dispatch:
 
 jobs:
   build:
@@ -32,12 +35,12 @@ jobs:
       - name: Lint code
         run: npm run lint:check
         
-      - name: List directory
-        run: ls
-
       - name: Compile
         run: npm run compile
-
+      
+      - name: Update packages
+        run: npm update
+      
       # Use unit rather than `test`, to skip the pretest step, otherwise that
       # would duplicate steps above.
       - name: Unit tests (without coverage report)
