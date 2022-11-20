@@ -1,4 +1,4 @@
-# Auto Commit & Sync
+# Save Commit & Sync
 > A VS Code extension to save, commit and sync at the same time. Uses code from MichaelCurrin/Auto-Commit-Message to generate commit messages.
 
 <!-- Badges mostly generated with https://michaelcurrin.github.io/badge-generator/#/ -->
