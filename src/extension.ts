@@ -138,6 +138,17 @@ async function saveCommitSync (uri?: vscode.Uri) {
   
 }
 
+// Checks if user has selected configuration to save single file and runs corresponding function.
+
+async function saveCommitSyncCheck (uri?: vscode.Uri) {
+  if (vscode.workspace.getConfiguration("commitMsg.saveCommitAndSyncButtonSavesSingle")) {
+    saveSingleCommitSync(uri);
+  }
+  else {
+    saveCommitSync(uri);
+  }
+}
+
 /**
  * Set up the extension activation.
  *
@@ -169,6 +180,10 @@ export function activate(context: vscode.ExtensionContext) {
   const saveSingleCommitSyncCommand = vscode.commands.registerCommand(
     "commitMsg.saveCommitSyncCommand",
     saveSingleCommitSync);
+  
+  const saveSingleCommitSyncCheckCommand = vscode.commands.registerCommand(
+    "commitMsg.saveCommitSyncCheckCommand",
+    saveCommitSyncCheck);
 
   // Pushes commands to subscriptions
 

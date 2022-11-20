@@ -81,7 +81,8 @@
     "onCommand:commitMsg.autofill",
     "onCommand:commitMsg.helloWorldTest",
     "onCommand:commitMsg.saveCommitSyncCommand",
-    "onCommand:commitMsg.saveSingleCommitSyncCommand"
+    "onCommand:commitMsg.saveSingleCommitSyncCommand",
+    "onCommand:commitMsg.saveSingleCommitSyncCheckCommand"
   ],
   "contributes": {
     "commands": [
@@ -123,7 +124,7 @@
     "menus": {
       "editor/title": [
         {
-          "command": "commitMsg.saveCommitSyncCommand",
+          "command": "commitMsg.saveCommitSyncCheckCommand",
           "group": "navigation"
         }
       ]
@@ -138,6 +139,14 @@
       "key": "ctrl+shift+f1",
       "mac": "cmd+alt"
     }
-  ]
+  ],
+  "configuration": {
+    "title": "Buttons",
+    "properties": {
+      "commitMsg.saveCommitAndSyncButtonSavesSingle": {
+        "type": "boolean",
+        "default": false,
+        "description": "If it's on, the main button will save the current file only and not save all."
+      }}
   }
-}
+}}
