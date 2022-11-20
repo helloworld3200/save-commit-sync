@@ -6,7 +6,7 @@
     "fmt:fix": "prettier -w src",
     "lint:check": "eslint . --ext .ts --max-warnings 10",
     "lint:fix": "eslint . --ext .ts --fix",
-    "clean": "rmdir /s /q out",
+    "clean": "if exist out rmdir /s /q out",
     "watch": "tsc -watch -p .",
     "compile": "npm run clean && tsc -p .",
     "pretest": "npm run compile",
