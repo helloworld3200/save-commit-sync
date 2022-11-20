@@ -3,6 +3,8 @@
 
 <!-- Badges mostly generated with https://michaelcurrin.github.io/badge-generator/#/ -->
 
+[![Node CI](https://github.com/helloworld3200/auto-commit-sync/workflows/Node%20CI/badge.svg)](https://github.com/helloworld3200/auto-commit-sync/actions?query=workflow:"Node+CI")
+[![CodeQL](https://github.com/helloworld3200/auto-commit-sync/workflows/CodeQL/badge.svg)](https://github.com/helloworld3200/auto-commit-sync/actions?query=workflow%3ACodeQL)
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license "Go to License section")
 ![maintained - yes](https://img.shields.io/badge/maintained-yes-blue)
 
