@@ -3,14 +3,15 @@
 
 <!-- Badges mostly generated with https://michaelcurrin.github.io/badge-generator/#/ -->
 
-[![Node CI](https://github.com/helloworld3200/auto-commit-sync/workflows/Node%20CI/badge.svg)](https://github.com/helloworld3200/auto-commit-sync/actions?query=workflow:"Node+CI")
-[![CodeQL](https://github.com/helloworld3200/auto-commit-sync/workflows/CodeQL/badge.svg)](https://github.com/helloworld3200/auto-commit-sync/actions?query=workflow%3ACodeQL)
+[![Node CI](https://github.com/helloworld3200/save-commit-sync/workflows/Node%20CI/badge.svg)](https://github.com/helloworld3200/save-commit-sync/actions?query=workflow:"Node+CI")
+[![CodeQL](https://github.com/helloworld3200/save-commit-sync/workflows/CodeQL/badge.svg)](https://github.com/helloworld3200/save-commit-sync/actions?query=workflow%3ACodeQL)
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license "Go to License section")
 ![maintained - yes](https://img.shields.io/badge/maintained-yes-blue)
 
 ## Tutorial
 
 To run the main command (Upload to Cloud) which saves all, commits and syncs to github use either the the button on the top of the screen or the keybinding (ctrl and shift and s).
+If you want to save, commit, sync just the current file, ctrl+shift+f1.
 There really isn't much else you need to know. That's it.
 
 There is documentation in the /docs folder for the original repo.

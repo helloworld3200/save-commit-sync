@@ -92,10 +92,34 @@ async function sayNo () {
 
 // Saves all files, autofills, commits all and syncs changes. For utility purposes.
 
-async function uploadCloud (uri?: vscode.Uri) {
+async function saveSingleCommitSync (uri?: vscode.Uri) {
   console.log("in uploadcloud");
   
-  vscode.window.showInformationMessage("Uploading changes to cloud...");
+  vscode.window.showInformationMessage("Saving, comitting and syncing...");
+  vscode.commands.executeCommand("workbench.view.scm");
+  
+  await vscode.commands.executeCommand("workbench.action.files.save");
+  const git = await getGitExtension()!;
+  
+  await _handleRepo(git);
+  const repo = await git.repositories[0];
+  const repoStatus = await repo.status();
+  const currentCommitMsg = await getCommitMsg(repo);
+  while (currentCommitMsg === "") {
+    const currentCommitMsg = await getCommitMsg(repo);
+  }
+
+  await vscode.commands.executeCommand("git.commitAll");
+  await vscode.commands.executeCommand("git.push");
+  
+}
+
+// Saves single file, commits and syncs.
+
+async function saveCommitSync (uri?: vscode.Uri) {
+  console.log("in uploadcloud");
+  
+  vscode.window.showInformationMessage("Saving, comitting and syncing...");
   vscode.commands.executeCommand("workbench.view.scm");
   
   await vscode.workspace.saveAll();
@@ -138,15 +162,20 @@ export function activate(context: vscode.ExtensionContext) {
   
   // Fully save, commit and sync utility command
 
-  const uploadCloudCommand = vscode.commands.registerCommand(
-    "commitMsg.uploadCloudCommand",
-    uploadCloud);
+  const saveCommitSyncCommand = vscode.commands.registerCommand(
+    "commitMsg.saveCommitSyncCommand",
+    saveCommitSync);
+  
+  const saveSingleCommitSyncCommand = vscode.commands.registerCommand(
+    "commitMsg.saveCommitSyncCommand",
+    saveSingleCommitSync);
 
   // Pushes commands to subscriptions
 
   context.subscriptions.push(disposable);
   context.subscriptions.push(hwTest);
-  context.subscriptions.push(uploadCloudCommand);
+  context.subscriptions.push(saveCommitSyncCommand);
+  context.subscriptions.push(saveSingleCommitSyncCommand);
 }
 
 // prettier-ignore

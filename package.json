@@ -51,11 +51,11 @@
     "name": "helloworld3200"
   },
   "license": "MIT",
-  "homepage": "https://github.com/helloworld3200/auto-commit-sync",
-  "bugs": "https://github.com/helloworld3200/auto-commit-sync/issues",
+  "homepage": "https://github.com/helloworld3200/save-commit-sync",
+  "bugs": "https://github.com/helloworld3200/save-commit-sync/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/helloworld3200/auto-commit-sync"
+    "url": "https://github.com/helloworld3200/save-commit-sync"
   },
   "keywords": [
     "git",
@@ -80,7 +80,8 @@
   "activationEvents": [
     "onCommand:commitMsg.autofill",
     "onCommand:commitMsg.helloWorldTest",
-    "onCommand:commitMsg.uploadCloudCommand"
+    "onCommand:commitMsg.saveCommitSyncCommand",
+    "onCommand:commitMsg.saveSingleCommitSyncCommand"
   ],
   "contributes": {
     "commands": [
@@ -102,8 +103,16 @@
         }
       },
       {
-        "command": "commitMsg.uploadCloudCommand",
-        "title": "Upload to Cloud",
+        "command": "commitMsg.saveCommitSyncCommand",
+        "title": "Save All, Commit and Sync!",
+        "icon": {
+          "dark": "images/message.png",
+          "light": "images/message-light.png"
+        }
+      },
+      {
+        "command": "commitMsg.saveSingleCommitSyncCommand",
+        "title": "Save, Commit and Sync!",
         "icon": {
           "dark": "images/message.png",
           "light": "images/message-light.png"
@@ -114,15 +123,21 @@
     "menus": {
       "editor/title": [
         {
-          "command": "commitMsg.uploadCloudCommand",
+          "command": "commitMsg.saveCommitSyncCommand",
           "group": "navigation"
         }
       ]
     },
     "keybindings": [{
-      "command": "commitMsg.uploadCloudCommand",
+      "command": "commitMsg.saveCommitSyncCommand",
       "key": "ctrl+shift+s",
       "mac": "cmd+alt"
-    }]
+    },
+    {
+      "command": "commitMsg.saveSingleCommitSyncCommand",
+      "key": "ctrl+shift+f1",
+      "mac": "cmd+alt"
+    }
+  ]
   }
 }
