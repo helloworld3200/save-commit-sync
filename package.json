@@ -22,8 +22,7 @@
     "preversion": "npm run checks",
     "version": "npm run build",
     "postversion": "git push --follow-tags",
-    "sb": "bin/reset_sandbox.sh",
-    "pack": "cd packages && vsce package"
+    "sb": "bin/reset_sandbox.sh"
   },
   "engines": {
     "node": ">=16",
