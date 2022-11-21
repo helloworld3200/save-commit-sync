@@ -19,6 +19,8 @@ There really isn't much else you need to know. That's it.
 
 There is documentation in the /docs folder for the original repo.
 
+_Contributions/Issues/Feature Requests are welcome._
+
 ## License
 
 Additional code written by [@helloworld3200](https://github.com/helloworld3200) (thats me).
