@@ -127,6 +127,7 @@ async function saveCommitSync (uri?: vscode.Uri) {
   
   await _handleRepo(git);
   const repo = await git.repositories[0];
+  console.log(git.repositories.length);
   const repoStatus = await repo.status();
   const currentCommitMsg = await getCommitMsg(repo);
   while (currentCommitMsg === "") {
@@ -181,7 +182,7 @@ export function activate(context: vscode.ExtensionContext) {
     "commitMsg.saveCommitSyncCommand",
     saveSingleCommitSync);
   
-  const saveSingleCommitSyncCheckCommand = vscode.commands.registerCommand(
+  const saveCommitSyncCheckCommand = vscode.commands.registerCommand(
     "commitMsg.saveCommitSyncCheckCommand",
     saveCommitSyncCheck);
 
@@ -191,6 +192,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(hwTest);
   context.subscriptions.push(saveCommitSyncCommand);
   context.subscriptions.push(saveSingleCommitSyncCommand);
+  context.subscriptions.push(saveCommitSyncCheckCommand);
 }
 
 // prettier-ignore

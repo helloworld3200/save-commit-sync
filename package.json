@@ -82,7 +82,7 @@
     "onCommand:commitMsg.helloWorldTest",
     "onCommand:commitMsg.saveCommitSyncCommand",
     "onCommand:commitMsg.saveSingleCommitSyncCommand",
-    "onCommand:commitMsg.saveSingleCommitSyncCheckCommand"
+    "onCommand:commitMsg.saveCommitSyncCheckCommand"
   ],
   "contributes": {
     "commands": [
@@ -114,6 +114,14 @@
       {
         "command": "commitMsg.saveSingleCommitSyncCommand",
         "title": "Save, Commit and Sync!",
+        "icon": {
+          "dark": "images/message.png",
+          "light": "images/message-light.png"
+        }
+      },
+      {
+        "command": "commitMsg.saveCommitSyncCheckCommand",
+        "title": "Save (all), Commit and Sync!",
         "icon": {
           "dark": "images/message.png",
           "light": "images/message-light.png"
