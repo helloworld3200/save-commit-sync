@@ -93,8 +93,7 @@ async function sayNo () {
 // Saves all files, autofills, commits all and syncs changes. For utility purposes.
 
 async function saveSingleCommitSync (uri?: vscode.Uri) {
-  console.log("in uploadcloud");
-  
+
   vscode.window.showInformationMessage("Saving, comitting and syncing...");
   vscode.commands.executeCommand("workbench.view.scm");
   
@@ -117,7 +116,6 @@ async function saveSingleCommitSync (uri?: vscode.Uri) {
 // Saves single file, commits and syncs.
 
 async function saveCommitSync (uri?: vscode.Uri) {
-  console.log("in uploadcloud");
   
   vscode.window.showInformationMessage("Saving, comitting and syncing...");
   vscode.commands.executeCommand("workbench.view.scm");
@@ -142,7 +140,9 @@ async function saveCommitSync (uri?: vscode.Uri) {
 // Checks if user has selected configuration to save single file and runs corresponding function.
 
 async function saveCommitSyncCheck (uri?: vscode.Uri) {
-  if (vscode.workspace.getConfiguration("commitMsg.saveCommitAndSyncButtonSavesSingle")) {
+  const status = vscode.workspace.getConfiguration("commitMsg.saveCommitAndSyncButtonSavesSingle");
+  console.log("Status value is:",status.value);
+  if (status.value) {
     saveSingleCommitSync(uri);
   }
   else {
@@ -179,7 +179,7 @@ export function activate(context: vscode.ExtensionContext) {
     saveCommitSync);
   
   const saveSingleCommitSyncCommand = vscode.commands.registerCommand(
-    "commitMsg.saveCommitSyncCommand",
+    "commitMsg.saveSingleCommitSyncCommand",
     saveSingleCommitSync);
   
   const saveCommitSyncCheckCommand = vscode.commands.registerCommand(
