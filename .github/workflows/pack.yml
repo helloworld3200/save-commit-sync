@@ -1,0 +1,12 @@
+name: Package
+
+on:
+    workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check if the packages folder contains package with the same version.
+        run: echo "Test, this isn't really done yet"
+      
