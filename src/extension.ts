@@ -108,6 +108,7 @@ async function saveSingleCommitSync (uri?: vscode.Uri) {
     const currentCommitMsg = await getCommitMsg(repo);
   }
 
+  await vscode.commands.executeCommand("git.stageAll");
   await vscode.commands.executeCommand("git.commitAll");
   await vscode.commands.executeCommand("git.push");
   
@@ -132,6 +133,7 @@ async function saveCommitSync (uri?: vscode.Uri) {
     const currentCommitMsg = await getCommitMsg(repo);
   }
 
+  await vscode.commands.executeCommand("git.stageAll");
   await vscode.commands.executeCommand("git.commitAll");
   await vscode.commands.executeCommand("git.push");
   
@@ -140,9 +142,9 @@ async function saveCommitSync (uri?: vscode.Uri) {
 // Checks if user has selected configuration to save single file and runs corresponding function.
 
 async function saveCommitSyncCheck (uri?: vscode.Uri) {
-  const status = vscode.workspace.getConfiguration("commitMsg.saveCommitAndSyncButtonSavesSingle");
-  console.log("Status value is:",status.value);
-  if (status.value) {
+  const status = vscode.workspace.getConfiguration("commitMsg");
+  const value = status.get("saveCommitAndSyncButtonSavesSingle");
+  if (!value) {
     saveSingleCommitSync(uri);
   }
   else {
