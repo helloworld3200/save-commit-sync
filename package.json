@@ -1,6 +1,6 @@
 {
   "name": "save-commit-sync",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "fmt:check": "prettier -c src",
     "fmt:fix": "prettier -w src",
