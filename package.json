@@ -72,7 +72,7 @@
   "categories": [
     "SCM Providers"
   ],
-  "icon": "images/icon.png",
+  "icon": "images/icon2.png",
   "galleryBanner": {
     "color": "#f0efe7",
     "theme": "light"
@@ -149,12 +149,18 @@
     }
   ],
   "configuration": {
-    "title": "Buttons",
+    "title": "Options",
     "properties": {
       "commitMsg.saveCommitAndSyncButtonSavesSingle": {
         "type": "boolean",
         "default": false,
         "description": "If it's on, the main button will save the current file only and not save all."
-      }}
+      },
+      "commitMsg.autofillCommitMessage": {
+        "type": "boolean",
+        "default": true,
+        "description": "Autofill commit message using MichaelCurrin/auto-commit-msg"
+      }
+    }
   }
 }}
