@@ -4,6 +4,7 @@
  * This sets up the VS Code extension's command entry-point and applies logic in
  * the prepareCommitMsg module to a target branch.
  */
+import { toNamespacedPath } from "path";
 import { report } from "process";
 import * as vscode from "vscode";
 import { API } from "./api/git";
@@ -92,6 +93,8 @@ async function sayNo () {
 
 // Saves all files, autofills, commits all and syncs changes. For utility purposes.
 
+// TODO: Refactor as single function
+
 async function saveSingleCommitSync (uri?: vscode.Uri) {
 
   vscode.window.showInformationMessage("Saving, comitting and syncing...");
@@ -109,8 +112,15 @@ async function saveSingleCommitSync (uri?: vscode.Uri) {
   const repo = await git.repositories[0];
   const repoStatus = await repo.status();
   const currentCommitMsg = await getCommitMsg(repo);
+  let timesDone = false;
+  setTimeout(() => {timesDone = true; console.log("hey");}, 2000);
   while (currentCommitMsg === "") {
     const currentCommitMsg = await getCommitMsg(repo);
+    if (timesDone) {
+      const message = "No commit message was provided! Either enable autofill in settings or write a commit message before you run the command.";
+      vscode.window.showInformationMessage(message);
+      return message;
+    }
   }
 
   await vscode.commands.executeCommand("git.stageAll");
@@ -128,19 +138,30 @@ async function saveCommitSync (uri?: vscode.Uri) {
   
   await vscode.workspace.saveAll();
   const git = await getGitExtension()!;
+  console.debug("at save");
   
   const autofill = vscode.workspace.getConfiguration("commitMsg");
   const status = autofill.get("autofillCommitMessage");
+  console.debug("before autofill");
   if (status) {
     await _handleRepo(git);
   }
+  console.debug("after autofill");
   
   const repo = await git.repositories[0];
-  console.log(git.repositories.length);
+  console.debug(git.repositories.length);
   const repoStatus = await repo.status();
   const currentCommitMsg = await getCommitMsg(repo);
+  let timesDone = false;
+  setTimeout(() => {timesDone = true; console.debug("hey");}, 2000);
   while (currentCommitMsg === "") {
     const currentCommitMsg = await getCommitMsg(repo);
+    console.debug(timesDone);
+    if (timesDone) {
+      const message = "No commit message was provided! Either enable autofill in settings or write a commit message before you run the command.";
+      vscode.window.showInformationMessage(message);
+      return message;
+    }
   }
 
   await vscode.commands.executeCommand("git.stageAll");
@@ -169,7 +190,8 @@ async function saveCommitSyncCheck (uri?: vscode.Uri) {
  * and run the autofill logic for a repo.
  */
 export function activate(context: vscode.ExtensionContext) {
-  
+  console.debug("sdfsdfsdf");
+
   // Autofill command (almost same as original, just renamed in package.json file)
 
   const disposable = vscode.commands.registerCommand(
