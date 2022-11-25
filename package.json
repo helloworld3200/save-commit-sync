@@ -149,12 +149,18 @@
     }
   ],
   "configuration": {
-    "title": "Buttons",
+    "title": "Options",
     "properties": {
       "commitMsg.saveCommitAndSyncButtonSavesSingle": {
         "type": "boolean",
         "default": false,
         "description": "If it's on, the main button will save the current file only and not save all."
-      }}
+      },
+      "commitMsg.autofillCommitMessage": {
+        "type": "boolean",
+        "default": false,
+        "description": "Autofill commit message using MichaelCurrin/auto-commit-msg"
+      }
+    }
   }
 }}
