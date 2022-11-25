@@ -153,7 +153,7 @@ async function saveCommitSync (uri?: vscode.Uri) {
 
 async function saveCommitSyncCheck (uri?: vscode.Uri) {
   const status = vscode.workspace.getConfiguration("commitMsg");
-  const value = status.get("saveCommitAndSyncButtonSavesSingle");
+  const value = status.get("saveCommitAndSyncButtonSavesSingleFile");
   if (!value) {
     saveSingleCommitSync(uri);
   }
