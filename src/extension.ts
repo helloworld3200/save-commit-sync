@@ -100,7 +100,12 @@ async function saveSingleCommitSync (uri?: vscode.Uri) {
   await vscode.commands.executeCommand("workbench.action.files.save");
   const git = await getGitExtension()!;
   
-  await _handleRepo(git);
+  const autofill = vscode.workspace.getConfiguration("commitMsg");
+  const status = autofill.get("autofillCommitMessage");
+  if (status) {
+    await _handleRepo(git);
+  }
+
   const repo = await git.repositories[0];
   const repoStatus = await repo.status();
   const currentCommitMsg = await getCommitMsg(repo);
@@ -124,7 +129,12 @@ async function saveCommitSync (uri?: vscode.Uri) {
   await vscode.workspace.saveAll();
   const git = await getGitExtension()!;
   
-  await _handleRepo(git);
+  const autofill = vscode.workspace.getConfiguration("commitMsg");
+  const status = autofill.get("autofillCommitMessage");
+  if (status) {
+    await _handleRepo(git);
+  }
+  
   const repo = await git.repositories[0];
   console.log(git.repositories.length);
   const repoStatus = await repo.status();
