@@ -158,7 +158,7 @@
       },
       "commitMsg.autofillCommitMessage": {
         "type": "boolean",
-        "default": false,
+        "default": true,
         "description": "Autofill commit message using MichaelCurrin/auto-commit-msg"
       }
     }
