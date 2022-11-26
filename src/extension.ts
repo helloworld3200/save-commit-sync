@@ -133,8 +133,10 @@ async function saveSingleCommitSync (uri?: vscode.Uri) {
 
 async function saveCommitSync (uri?: vscode.Uri) {
   
+  console.debug("before save");
   vscode.window.showInformationMessage("Saving, comitting and syncing...");
   vscode.commands.executeCommand("workbench.view.scm");
+  
   
   await vscode.workspace.saveAll();
   const git = await getGitExtension()!;
@@ -153,10 +155,11 @@ async function saveCommitSync (uri?: vscode.Uri) {
   const repoStatus = await repo.status();
   const currentCommitMsg = await getCommitMsg(repo);
   let timesDone = false;
+  console.debug("before timeout");
   setTimeout(() => {timesDone = true; console.debug("hey");}, 2000);
+  console.debug("after timeout");
   while (currentCommitMsg === "") {
     const currentCommitMsg = await getCommitMsg(repo);
-    console.debug(timesDone);
     if (timesDone) {
       const message = "No commit message was provided! Either enable autofill in settings or write a commit message before you run the command.";
       vscode.window.showInformationMessage(message);
@@ -175,11 +178,14 @@ async function saveCommitSync (uri?: vscode.Uri) {
 async function saveCommitSyncCheck (uri?: vscode.Uri) {
   const status = vscode.workspace.getConfiguration("commitMsg");
   const value = status.get("saveCommitAndSyncButtonSavesSingleFile");
-  if (!value) {
+  console.debug("value is: "+value);
+  if (value) {
     saveSingleCommitSync(uri);
+    console.debug("in save single commit sync");
   }
   else {
     saveCommitSync(uri);
+    console.debug("in save commit sync");
   }
 }
 
