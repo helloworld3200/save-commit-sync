@@ -93,78 +93,44 @@ async function sayNo () {
 
 // Saves all files, autofills, commits all and syncs changes. For utility purposes.
 
-// TODO: Refactor as single function
-
-async function saveSingleCommitSync (uri?: vscode.Uri) {
-
-  vscode.window.showInformationMessage("Saving, comitting and syncing...");
-  vscode.commands.executeCommand("workbench.view.scm");
-  
-  await vscode.commands.executeCommand("workbench.action.files.save");
-  const git = await getGitExtension()!;
-  
-  const autofill = vscode.workspace.getConfiguration("commitMsg");
-  const status = autofill.get("autofillCommitMessage");
-  if (status) {
-    await _handleRepo(git);
-  }
-
-  const repo = await git.repositories[0];
-  const repoStatus = await repo.status();
-  const currentCommitMsg = await getCommitMsg(repo);
-  let timesDone = false;
-  setTimeout(() => {timesDone = true; console.log("hey");}, 2000);
-  while (currentCommitMsg === "") {
-    const currentCommitMsg = await getCommitMsg(repo);
-    if (timesDone) {
-      const message = "No commit message was provided! Either enable autofill in settings or write a commit message before you run the command.";
-      vscode.window.showInformationMessage(message);
-      return message;
-    }
-  }
-
-  await vscode.commands.executeCommand("git.stageAll");
-  await vscode.commands.executeCommand("git.commitAll");
-  await vscode.commands.executeCommand("git.push");
-  
-}
-
-// Saves single file, commits and syncs.
-
-async function saveCommitSync (uri?: vscode.Uri) {
+async function saveCommitSync (files: string) {
   
   console.debug("before save");
   vscode.window.showInformationMessage("Saving, comitting and syncing...");
   vscode.commands.executeCommand("workbench.view.scm");
   
-  
-  await vscode.workspace.saveAll();
+  if (files === "multi") {
+    await vscode.workspace.saveAll();
+  }
+  else {
+    await vscode.commands.executeCommand("workbench.action.files.save");
+  }
+
   const git = await getGitExtension()!;
+  const repo = await git.repositories[0];
   console.debug("at save");
   
   const autofill = vscode.workspace.getConfiguration("commitMsg");
   const status = autofill.get("autofillCommitMessage");
+  let gitCommitMsg = await getCommitMsg(repo);
   console.debug("before autofill");
   if (status) {
     await _handleRepo(git);
   }
+  else if (gitCommitMsg === "") {
+    const message = "No commit message was provided.";
+    vscode.window.showInformationMessage(message);
+    return message;
+  }
   console.debug("after autofill");
   
-  const repo = await git.repositories[0];
   console.debug(git.repositories.length);
   const repoStatus = await repo.status();
-  const currentCommitMsg = await getCommitMsg(repo);
-  let timesDone = false;
+  gitCommitMsg = await getCommitMsg(repo);
   console.debug("before timeout");
-  setTimeout(() => {timesDone = true; console.debug("hey");}, 2000);
   console.debug("after timeout");
-  while (currentCommitMsg === "") {
+  while (gitCommitMsg === "") {
     const currentCommitMsg = await getCommitMsg(repo);
-    if (timesDone) {
-      const message = "No commit message was provided! Either enable autofill in settings or write a commit message before you run the command.";
-      vscode.window.showInformationMessage(message);
-      return message;
-    }
   }
 
   await vscode.commands.executeCommand("git.stageAll");
@@ -187,6 +153,14 @@ async function saveCommitSyncCheck (uri?: vscode.Uri) {
     saveCommitSync(uri);
     console.debug("in save commit sync");
   }
+}
+
+async function saveAllCommitSync (uri?: vscode.Uri) {
+  saveCommitSync("multi");
+}
+
+async function saveSingleCommitSync (uri?: vscode.Uri) {
+  saveCommitSync("single");
 }
 
 /**
@@ -216,7 +190,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   const saveCommitSyncCommand = vscode.commands.registerCommand(
     "commitMsg.saveCommitSyncCommand",
-    saveCommitSync);
+    saveAllCommitSync);
   
   const saveSingleCommitSyncCommand = vscode.commands.registerCommand(
     "commitMsg.saveSingleCommitSyncCommand",
