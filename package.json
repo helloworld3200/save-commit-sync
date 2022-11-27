@@ -151,7 +151,7 @@
   "configuration": {
     "title": "Options",
     "properties": {
-      "commitMsg.saveCommitAndSyncButtonSavesSingle": {
+      "commitMsg.saveCommitAndSyncButtonSavesSingleFile": {
         "type": "boolean",
         "default": false,
         "description": "If it's on, the main button will save the current file only and not save all."

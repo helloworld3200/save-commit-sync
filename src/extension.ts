@@ -4,6 +4,7 @@
  * This sets up the VS Code extension's command entry-point and applies logic in
  * the prepareCommitMsg module to a target branch.
  */
+import { toNamespacedPath } from "path";
 import { report } from "process";
 import * as vscode from "vscode";
 import { API } from "./api/git";
@@ -92,54 +93,43 @@ async function sayNo () {
 
 // Saves all files, autofills, commits all and syncs changes. For utility purposes.
 
-async function saveSingleCommitSync (uri?: vscode.Uri) {
-
+async function saveCommitSync (files: string) {
+  
+  console.debug("before save");
   vscode.window.showInformationMessage("Saving, comitting and syncing...");
   vscode.commands.executeCommand("workbench.view.scm");
   
-  await vscode.commands.executeCommand("workbench.action.files.save");
+  if (files === "multi") {
+    await vscode.workspace.saveAll();
+  }
+  else {
+    await vscode.commands.executeCommand("workbench.action.files.save");
+  }
+
   const git = await getGitExtension()!;
+  const repo = await git.repositories[0];
+  console.debug("at save");
   
   const autofill = vscode.workspace.getConfiguration("commitMsg");
   const status = autofill.get("autofillCommitMessage");
+  let gitCommitMsg = await getCommitMsg(repo);
+  console.debug("before autofill");
   if (status) {
     await _handleRepo(git);
   }
-
-  const repo = await git.repositories[0];
-  const repoStatus = await repo.status();
-  const currentCommitMsg = await getCommitMsg(repo);
-  while (currentCommitMsg === "") {
-    const currentCommitMsg = await getCommitMsg(repo);
+  else if (gitCommitMsg === "") {
+    const message = "No commit message was provided.";
+    vscode.window.showInformationMessage(message);
+    return message;
   }
-
-  await vscode.commands.executeCommand("git.stageAll");
-  await vscode.commands.executeCommand("git.commitAll");
-  await vscode.commands.executeCommand("git.push");
+  console.debug("after autofill");
   
-}
-
-// Saves single file, commits and syncs.
-
-async function saveCommitSync (uri?: vscode.Uri) {
-  
-  vscode.window.showInformationMessage("Saving, comitting and syncing...");
-  vscode.commands.executeCommand("workbench.view.scm");
-  
-  await vscode.workspace.saveAll();
-  const git = await getGitExtension()!;
-  
-  const autofill = vscode.workspace.getConfiguration("commitMsg");
-  const status = autofill.get("autofillCommitMessage");
-  if (status) {
-    await _handleRepo(git);
-  }
-  
-  const repo = await git.repositories[0];
-  console.log(git.repositories.length);
+  console.debug(git.repositories.length);
   const repoStatus = await repo.status();
-  const currentCommitMsg = await getCommitMsg(repo);
-  while (currentCommitMsg === "") {
+  gitCommitMsg = await getCommitMsg(repo);
+  console.debug("before timeout");
+  console.debug("after timeout");
+  while (gitCommitMsg === "") {
     const currentCommitMsg = await getCommitMsg(repo);
   }
 
@@ -153,13 +143,24 @@ async function saveCommitSync (uri?: vscode.Uri) {
 
 async function saveCommitSyncCheck (uri?: vscode.Uri) {
   const status = vscode.workspace.getConfiguration("commitMsg");
-  const value = status.get("saveCommitAndSyncButtonSavesSingle");
-  if (!value) {
+  const value = status.get("saveCommitAndSyncButtonSavesSingleFile");
+  console.debug("value is: "+value);
+  if (value) {
     saveSingleCommitSync(uri);
+    console.debug("in save single commit sync");
   }
   else {
-    saveCommitSync(uri);
+    saveAllCommitSync(uri);
+    console.debug("in save commit sync");
   }
+}
+
+async function saveAllCommitSync (uri?: vscode.Uri) {
+  saveCommitSync("multi");
+}
+
+async function saveSingleCommitSync (uri?: vscode.Uri) {
+  saveCommitSync("single");
 }
 
 /**
@@ -169,7 +170,8 @@ async function saveCommitSyncCheck (uri?: vscode.Uri) {
  * and run the autofill logic for a repo.
  */
 export function activate(context: vscode.ExtensionContext) {
-  
+  console.debug("sdfsdfsdf");
+
   // Autofill command (almost same as original, just renamed in package.json file)
 
   const disposable = vscode.commands.registerCommand(
@@ -188,7 +190,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   const saveCommitSyncCommand = vscode.commands.registerCommand(
     "commitMsg.saveCommitSyncCommand",
-    saveCommitSync);
+    saveAllCommitSync);
   
   const saveSingleCommitSyncCommand = vscode.commands.registerCommand(
     "commitMsg.saveSingleCommitSyncCommand",

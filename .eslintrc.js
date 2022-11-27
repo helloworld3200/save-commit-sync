@@ -9,7 +9,7 @@ module.exports = {
     semi: [2, "always"],
     "comma-dangle": [2, "always-multiline"],
     quotes: [2, "double", { avoidEscape: true }],
-    "max-len": [2, { code: 100, ignoreUrls: true }],
+    "max-len": [2, { code: 1000, ignoreUrls: true }],
 
     "@typescript-eslint/no-unused-vars": 0,
     "@typescript-eslint/no-explicit-any": 0,
