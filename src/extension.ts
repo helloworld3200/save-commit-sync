@@ -150,7 +150,7 @@ async function saveCommitSyncCheck (uri?: vscode.Uri) {
     console.debug("in save single commit sync");
   }
   else {
-    saveCommitSync(uri);
+    saveAllCommitSync(uri);
     console.debug("in save commit sync");
   }
 }
