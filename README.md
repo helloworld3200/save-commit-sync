@@ -12,14 +12,18 @@
 
 To run the main command which saves all, commits and syncs to github use 
 either the the button on the top of the screen or the keybinding (ctrl and shift and s).
+
 If you want to save, commit, sync just the current file, ctrl+shift+f1.
+
 The button on the top right will (by default) save all, commit and sync. You can make it
 save a single file in extension settings.
+
+This uses MichaelCurrin/Auto-Commit-Message to generate commit messages. Disable this in 
+extension settings.
+
 There really isn't much else you need to know. That's it.
 
 There is documentation in the /docs folder for the original repo.
-
-update in a bit
 
 _Contributions/Issues/Feature Requests are welcome._
 
