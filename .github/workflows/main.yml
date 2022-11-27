@@ -40,6 +40,9 @@ jobs:
       
       - name: Update packages
         run: npm update
+        
+      - name: Audit with npm
+        run: npm audit
       
       # Use unit rather than `test`, to skip the pretest step, otherwise that
       # would duplicate steps above.
