@@ -20,7 +20,6 @@ async function sayNo () {
 
 async function saveCommitSync (files: string) {
   
-  console.debug("before save");
   vscode.window.showInformationMessage("Saving, comitting and syncing...");
   vscode.commands.executeCommand("workbench.view.scm");
   
@@ -33,12 +32,10 @@ async function saveCommitSync (files: string) {
 
   const git = await getGitExtension()!;
   const repo = await git.repositories[0];
-  console.debug("at save");
   
   const autofill = vscode.workspace.getConfiguration("saveCommitSync");
   const status = autofill.get("autofillCommitMessage");
   let gitCommitMsg = await getCommitMsg(repo);
-  console.debug("before autofill");
   if (status) {
     await vscode.commands.executeCommand("commitMsg.autofill");
   }
@@ -47,13 +44,10 @@ async function saveCommitSync (files: string) {
     vscode.window.showInformationMessage(message);
     return message;
   }
-  console.debug("after autofill");
   
   console.debug(git.repositories.length);
   const repoStatus = await repo.status();
   gitCommitMsg = await getCommitMsg(repo);
-  console.debug("before timeout");
-  console.debug("after timeout");
   while (gitCommitMsg === "") {
     const currentCommitMsg = await getCommitMsg(repo);
   }
@@ -69,14 +63,11 @@ async function saveCommitSync (files: string) {
 async function saveCommitSyncCheck (uri?: vscode.Uri) {
   const status = vscode.workspace.getConfiguration("saveCommitSync");
   const value = status.get("saveCommitAndSyncButtonSavesSingleFile");
-  console.debug("value is: "+value);
   if (value) {
     saveSingleCommitSync(uri);
-    console.debug("in save single commit sync");
   }
   else {
     saveAllCommitSync(uri);
-    console.debug("in save commit sync");
   }
 }
 
@@ -95,7 +86,6 @@ async function saveSingleCommitSync (uri?: vscode.Uri) {
  * and run the autofill logic for a repo.
  */
 export function activate(context: vscode.ExtensionContext) {
-  console.debug("sdfsdfsdf");
 
   // Disposable hello world test
 
