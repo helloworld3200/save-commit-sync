@@ -84,6 +84,9 @@
     "onCommand:saveCommitSync.saveSingleCommitSyncCommand",
     "onCommand:saveCommitSync.saveCommitSyncCheckCommand"
   ],
+  "extensionDependencies": [
+    "michaelcurrin.auto-commit-msg"
+  ],
   "contributes": {
     "commands": [
       {
