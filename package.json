@@ -78,25 +78,16 @@
     "theme": "light"
   },
   "activationEvents": [
-    "onCommand:commitMsg.autofill",
-    "onCommand:commitMsg.helloWorldTest",
-    "onCommand:commitMsg.saveCommitSyncCommand",
-    "onCommand:commitMsg.saveSingleCommitSyncCommand",
-    "onCommand:commitMsg.saveCommitSyncCheckCommand"
+    "onCommand:saveCommitSync.autofill",
+    "onCommand:saveCommitSync.helloWorldTest",
+    "onCommand:saveCommitSync.saveCommitSyncCommand",
+    "onCommand:saveCommitSync.saveSingleCommitSyncCommand",
+    "onCommand:saveCommitSync.saveCommitSyncCheckCommand"
   ],
   "contributes": {
     "commands": [
       {
-        "command": "commitMsg.autofill",
-        "title": "Autofill Commit Message",
-        "icon": {
-          "dark": "images/message.png",
-          "light": "images/message-light.png"
-        }
-      
-      },
-      {
-        "command": "commitMsg.helloWorldTest",
+        "command": "saveCommitSync.helloWorldTest",
         "title": "Hello World Test",
         "icon": {
           "dark": "images/message.png",
@@ -104,7 +95,7 @@
         }
       },
       {
-        "command": "commitMsg.saveCommitSyncCommand",
+        "command": "saveCommitSync.saveCommitSyncCommand",
         "title": "Save All, Commit and Sync!",
         "icon": {
           "dark": "images/message.png",
@@ -112,7 +103,7 @@
         }
       },
       {
-        "command": "commitMsg.saveSingleCommitSyncCommand",
+        "command": "saveCommitSync.saveSingleCommitSyncCommand",
         "title": "Save, Commit and Sync!",
         "icon": {
           "dark": "images/message.png",
@@ -120,7 +111,7 @@
         }
       },
       {
-        "command": "commitMsg.saveCommitSyncCheckCommand",
+        "command": "saveCommitSync.saveCommitSyncCheckCommand",
         "title": "Save (all), Commit and Sync!",
         "icon": {
           "dark": "images/message.png",
@@ -132,18 +123,18 @@
     "menus": {
       "editor/title": [
         {
-          "command": "commitMsg.saveCommitSyncCheckCommand",
+          "command": "saveCommitSync.saveCommitSyncCheckCommand",
           "group": "navigation"
         }
       ]
     },
     "keybindings": [{
-      "command": "commitMsg.saveCommitSyncCommand",
+      "command": "saveCommitSync.saveCommitSyncCommand",
       "key": "ctrl+shift+s",
       "mac": "cmd+alt"
     },
     {
-      "command": "commitMsg.saveSingleCommitSyncCommand",
+      "command": "saveCommitSync.saveSingleCommitSyncCommand",
       "key": "ctrl+shift+f1",
       "mac": "cmd+alt"
     }
@@ -151,12 +142,12 @@
   "configuration": {
     "title": "Options",
     "properties": {
-      "commitMsg.saveCommitAndSyncButtonSavesSingleFile": {
+      "saveCommitSync.saveCommitAndSyncButtonSavesSingleFile": {
         "type": "boolean",
         "default": false,
         "description": "If it's on, the main button will save the current file only and not save all."
       },
-      "commitMsg.autofillCommitMessage": {
+      "saveCommitSync.autofillCommitMessage": {
         "type": "boolean",
         "default": true,
         "description": "Autofill commit message using MichaelCurrin/auto-commit-msg"
