@@ -121,7 +121,6 @@
           "light": "images/message-light.png"
         }
       }
-
     ],
     "menus": {
       "editor/title": [
@@ -131,30 +130,36 @@
         }
       ]
     },
-    "keybindings": [{
-      "command": "saveCommitSync.saveCommitSyncCommand",
-      "key": "ctrl+shift+s",
-      "mac": "cmd+alt"
-    },
-    {
-      "command": "saveCommitSync.saveSingleCommitSyncCommand",
-      "key": "ctrl+shift+f1",
-      "mac": "cmd+alt"
-    }
-  ],
-  "configuration": {
-    "title": "Options",
-    "properties": {
-      "saveCommitSync.saveCommitAndSyncButtonSavesSingleFile": {
-        "type": "boolean",
-        "default": false,
-        "description": "If it's on, the main button will save the current file only and not save all."
+    "keybindings": [
+      {
+        "command": "saveCommitSync.saveCommitSyncCommand",
+        "key": "ctrl+shift+s",
+        "mac": "cmd+alt"
       },
-      "saveCommitSync.autofillCommitMessage": {
-        "type": "boolean",
-        "default": true,
-        "description": "Autofill commit message using MichaelCurrin/auto-commit-msg"
+      {
+        "command": "saveCommitSync.saveSingleCommitSyncCommand",
+        "key": "ctrl+shift+f1",
+        "mac": "cmd+alt"
+      }
+    ],
+    "configuration": {
+      "title": "Options",
+      "properties": {
+        "saveCommitSync.saveCommitAndSyncButtonSavesSingleFile": {
+          "type": "boolean",
+          "default": false,
+          "description": "If it's on, the main button will save the current file only and not save all."
+        },
+        "saveCommitSync.autofillCommitMessage": {
+          "type": "boolean",
+          "default": true,
+          "description": "Autofill commit message using MichaelCurrin/auto-commit-msg"
+        }
       }
     }
+  },
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "uuid": "^9.0.0"
   }
-}}
+}
