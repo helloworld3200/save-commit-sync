@@ -42,7 +42,9 @@
     "source-map-support": "^0.5.20",
     "typescript": "^4.7.2",
     "vsce": "^2.9.1",
-    "vscode-test": "^1.6.1"
+    "vscode-test": "^1.6.1",
+    "chalk": "^5.2.0",
+    "uuid": "^9.0.0"
   },
   "displayName": "Save Commit Sync",
   "description": "A VS Code extension to save, commit and sync - all at the same time!",
@@ -78,25 +80,19 @@
     "theme": "light"
   },
   "activationEvents": [
-    "onCommand:commitMsg.autofill",
-    "onCommand:commitMsg.helloWorldTest",
-    "onCommand:commitMsg.saveCommitSyncCommand",
-    "onCommand:commitMsg.saveSingleCommitSyncCommand",
-    "onCommand:commitMsg.saveCommitSyncCheckCommand"
+    "onCommand:saveCommitSync.autofill",
+    "onCommand:saveCommitSync.helloWorldTest",
+    "onCommand:saveCommitSync.saveCommitSyncCommand",
+    "onCommand:saveCommitSync.saveSingleCommitSyncCommand",
+    "onCommand:saveCommitSync.saveCommitSyncCheckCommand"
+  ],
+  "extensionDependencies": [
+    "michaelcurrin.auto-commit-msg"
   ],
   "contributes": {
     "commands": [
       {
-        "command": "commitMsg.autofill",
-        "title": "Autofill Commit Message",
-        "icon": {
-          "dark": "images/message.png",
-          "light": "images/message-light.png"
-        }
-      
-      },
-      {
-        "command": "commitMsg.helloWorldTest",
+        "command": "saveCommitSync.helloWorldTest",
         "title": "Hello World Test",
         "icon": {
           "dark": "images/message.png",
@@ -104,7 +100,7 @@
         }
       },
       {
-        "command": "commitMsg.saveCommitSyncCommand",
+        "command": "saveCommitSync.saveCommitSyncCommand",
         "title": "Save All, Commit and Sync!",
         "icon": {
           "dark": "images/message.png",
@@ -112,7 +108,7 @@
         }
       },
       {
-        "command": "commitMsg.saveSingleCommitSyncCommand",
+        "command": "saveCommitSync.saveSingleCommitSyncCommand",
         "title": "Save, Commit and Sync!",
         "icon": {
           "dark": "images/message.png",
@@ -120,47 +116,51 @@
         }
       },
       {
-        "command": "commitMsg.saveCommitSyncCheckCommand",
+        "command": "saveCommitSync.saveCommitSyncCheckCommand",
         "title": "Save (all), Commit and Sync!",
         "icon": {
           "dark": "images/message.png",
           "light": "images/message-light.png"
         }
       }
-
     ],
     "menus": {
       "editor/title": [
         {
-          "command": "commitMsg.saveCommitSyncCheckCommand",
+          "command": "saveCommitSync.saveCommitSyncCheckCommand",
           "group": "navigation"
         }
       ]
     },
-    "keybindings": [{
-      "command": "commitMsg.saveCommitSyncCommand",
-      "key": "ctrl+shift+s",
-      "mac": "cmd+alt"
-    },
-    {
-      "command": "commitMsg.saveSingleCommitSyncCommand",
-      "key": "ctrl+shift+f1",
-      "mac": "cmd+alt"
-    }
-  ],
-  "configuration": {
-    "title": "Options",
-    "properties": {
-      "commitMsg.saveCommitAndSyncButtonSavesSingleFile": {
-        "type": "boolean",
-        "default": false,
-        "description": "If it's on, the main button will save the current file only and not save all."
+    "keybindings": [
+      {
+        "command": "saveCommitSync.saveCommitSyncCommand",
+        "key": "ctrl+shift+s",
+        "mac": "cmd+alt"
       },
-      "commitMsg.autofillCommitMessage": {
-        "type": "boolean",
-        "default": true,
-        "description": "Autofill commit message using MichaelCurrin/auto-commit-msg"
+      {
+        "command": "saveCommitSync.saveSingleCommitSyncCommand",
+        "key": "ctrl+shift+f1",
+        "mac": "cmd+alt"
+      }
+    ],
+    "configuration": {
+      "title": "Options",
+      "properties": {
+        "saveCommitSync.saveCommitAndSyncButtonSavesSingleFile": {
+          "type": "boolean",
+          "default": false,
+          "description": "If it's on, the main button will save the current file only and not save all."
+        },
+        "saveCommitSync.autofillCommitMessage": {
+          "type": "boolean",
+          "default": true,
+          "description": "Autofill commit message using MichaelCurrin/auto-commit-msg"
+        }
       }
     }
+  },
+  "dependencies": {
+    "chalk": "^5.2.0"
   }
-}}
+}
