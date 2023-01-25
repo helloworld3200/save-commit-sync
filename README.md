@@ -30,6 +30,6 @@ _Contributions/Issues/Feature Requests are welcome._
 ## License
 
 Additional code written by [@helloworld3200](https://github.com/helloworld3200) (thats me).
-Released under [MIT](/LICENSE) by [@MichaelCurrin](https://github.com/MichaelCurrin) (original author of repository).
+Released under [MIT](/LICENSE) by [@MichaelCurrin](https://github.com/MichaelCurrin) (original author of AutoCommitMsg repository).
 
 See the [Credit](/docs/other/credit.md) doc for more info.
