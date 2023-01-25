@@ -5,6 +5,7 @@ on:
     paths-ignore:
       - "docs/**"
       - README.md
+      - "packages/**"
   schedule:
     - cron: "26 0 * * 2"
   workflow_dispatch:
