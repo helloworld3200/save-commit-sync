@@ -22,6 +22,15 @@ async function saveCommitSync (files: string) {
   
   vscode.window.showInformationMessage("Saving, comitting and syncing...");
   vscode.commands.executeCommand("workbench.view.scm");
+
+  const git = await getGitExtension()!;
+  const repo = await git.repositories[0];
+  
+  const config = vscode.workspace.getConfiguration("saveCommitSync");
+  const autofill = config.get("autofillCommitMessageWhenBoxIsEmpty");
+  let gitCommitMsg = await getCommitMsg(repo);
+  const messageIsEmpty = gitCommitMsg === "";
+  const noMessageAlert = "No commit message was provided. If you want to autofill the commit message, enable it in settings.";
   
   if (files === "multi") {
     await vscode.workspace.saveAll();
@@ -30,26 +39,16 @@ async function saveCommitSync (files: string) {
     await vscode.commands.executeCommand("workbench.action.files.save");
   }
 
-  const git = await getGitExtension()!;
-  const repo = await git.repositories[0];
-  
-  const autofill = vscode.workspace.getConfiguration("saveCommitSync");
-  const status = autofill.get("autofillCommitMessage");
-  let gitCommitMsg = await getCommitMsg(repo);
-  if (status) {
+  if (messageIsEmpty && autofill) {
     await vscode.commands.executeCommand("commitMsg.autofill");
-  }
-  else if (gitCommitMsg === "") {
-    const message = "No commit message was provided.";
-    vscode.window.showInformationMessage(message);
-    return message;
-  }
-  
-  console.debug(git.repositories.length);
-  const repoStatus = await repo.status();
-  gitCommitMsg = await getCommitMsg(repo);
-  while (gitCommitMsg === "") {
-    const currentCommitMsg = await getCommitMsg(repo);
+    const repoStatus = await repo.status();
+    gitCommitMsg = await getCommitMsg(repo);
+    while (gitCommitMsg === "") {
+      const currentCommitMsg = await getCommitMsg(repo);
+    }
+  } else if (messageIsEmpty && !autofill) {
+    vscode.commands.executeCommand(noMessageAlert);
+    return noMessageAlert;
   }
 
   await vscode.commands.executeCommand("git.stageAll");

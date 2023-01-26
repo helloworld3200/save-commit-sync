@@ -153,10 +153,10 @@
           "default": false,
           "description": "If it's on, the main button will save the current file only and not save all."
         },
-        "saveCommitSync.autofillCommitMessage": {
+        "saveCommitSync.autofillCommitMessageWhenBoxIsEmpty": {
           "type": "boolean",
           "default": true,
-          "description": "Autofill commit message using MichaelCurrin/auto-commit-msg"
+          "description": "Autofill commit message using MichaelCurrin/auto-commit-msg when empty"
         }
       }
     }
