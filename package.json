@@ -22,7 +22,8 @@
     "preversion": "npm run checks",
     "version": "npm run build",
     "postversion": "git push --follow-tags",
-    "sb": "bin/reset_sandbox.sh"
+    "sb": "bin/reset_sandbox.sh",
+    "refresh": "npm i && npm update"
   },
   "engines": {
     "node": ">=16",
