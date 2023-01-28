@@ -48,7 +48,7 @@ async function saveCommitSync (files: string) {
     }
   } else if (messageIsEmpty && !autofill) {
     vscode.commands.executeCommand(noMessageAlert);
-    return noMessageAlert;
+    return;
   }
 
   await vscode.commands.executeCommand("git.stageAll");
