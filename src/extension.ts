@@ -47,8 +47,8 @@ async function saveCommitSync (files: string) {
       const currentCommitMsg = await getCommitMsg(repo);
     }
   } else if (messageIsEmpty && !autofill) {
-    vscode.commands.executeCommand(noMessageAlert);
-    return;
+    vscode.window.showErrorMessage(noMessageAlert);
+    return noMessageAlert;
   }
 
   await vscode.commands.executeCommand("git.stageAll");
