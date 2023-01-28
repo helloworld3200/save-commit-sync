@@ -43,9 +43,9 @@ async function saveCommitSync (files: string) {
     await vscode.commands.executeCommand("commitMsg.autofill");
     const repoStatus = await repo.status();
     gitCommitMsg = await getCommitMsg(repo);
-    while (gitCommitMsg === "") {
-      const currentCommitMsg = await getCommitMsg(repo);
-    }
+    //while (gitCommitMsg === "") {
+    //  const currentCommitMsg = await getCommitMsg(repo);
+    //}
   } else if (messageIsEmpty && !autofill) {
     vscode.window.showErrorMessage(noMessageAlert);
     return noMessageAlert;
