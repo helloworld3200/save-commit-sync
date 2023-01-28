@@ -41,15 +41,23 @@ async function saveCommitSync (files: string) {
 
   if (messageIsEmpty && autofill) {
     await vscode.commands.executeCommand("commitMsg.autofill");
-    const repoStatus = await repo.status();
+
+    //NOTE: This code is probably unecessary but I'm keeping it here if something does break.
     //gitCommitMsg = await getCommitMsg(repo);
     //while (gitCommitMsg === "") {
-    //  const currentCommitMsg = await getCommitMsg(repo);
+    //  gitCommitMsg = await getCommitMsg(repo);
     //}
+    
   } else if (messageIsEmpty && !autofill) {
     vscode.window.showErrorMessage(noMessageAlert);
     return noMessageAlert;
   }
+
+  // Refresh repository to detect changes. Why not executeCommand("git.refresh"); ? Because that
+  // might not do it for the repo we want it to, and this is the only line of code written in the
+  // function anyway so it doesn't matter. Point is it's *probably* better. Not willing to check
+  // and it doesn't even matter.
+  await repo.status();
 
   await vscode.commands.executeCommand("git.stageAll");
   await vscode.commands.executeCommand("git.commitAll");
