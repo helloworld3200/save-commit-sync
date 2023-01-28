@@ -28,7 +28,7 @@ async function saveCommitSync (files: string) {
   
   const config = vscode.workspace.getConfiguration("saveCommitSync");
   const autofill = config.get("autofillCommitMessageWhenBoxIsEmpty");
-  let gitCommitMsg = await getCommitMsg(repo);
+  const gitCommitMsg = await getCommitMsg(repo);
   const messageIsEmpty = gitCommitMsg === "";
   const noMessageAlert = "No commit message was provided. If you want to autofill the commit message, enable it in settings.";
   
@@ -42,7 +42,7 @@ async function saveCommitSync (files: string) {
   if (messageIsEmpty && autofill) {
     await vscode.commands.executeCommand("commitMsg.autofill");
     const repoStatus = await repo.status();
-    gitCommitMsg = await getCommitMsg(repo);
+    //gitCommitMsg = await getCommitMsg(repo);
     //while (gitCommitMsg === "") {
     //  const currentCommitMsg = await getCommitMsg(repo);
     //}
