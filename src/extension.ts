@@ -2,7 +2,7 @@
  * Extension module.
  */
 import * as vscode from "vscode";
-import { getGitExtension,  getCommitMsg} from "./gitExtension";
+import { getGitExtension,  getCommitMsg, setCommitMsg} from "./gitExtension";
 
 async function helloWorldTest (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Hello, world!");
@@ -55,6 +55,8 @@ async function saveCommitSync (files: string) {
   await vscode.commands.executeCommand("git.commitAll");
   await vscode.commands.executeCommand("git.push");
   
+  setCommitMsg(repo, "");
+
 }
 
 // Checks if user has selected configuration to save single file and runs corresponding function.
