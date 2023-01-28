@@ -42,12 +42,12 @@ async function saveCommitSync (files: string) {
   if (messageIsEmpty && autofill) {
     await vscode.commands.executeCommand("commitMsg.autofill");
 
-    //NOTE: This code is probably unecessary but I'm keeping it here if something does break.
+    // NOTE: This code is probably unecessary but I'm keeping it here if something does break.
     //gitCommitMsg = await getCommitMsg(repo);
     //while (gitCommitMsg === "") {
     //  gitCommitMsg = await getCommitMsg(repo);
     //}
-    
+
   } else if (messageIsEmpty && !autofill) {
     vscode.window.showErrorMessage(noMessageAlert);
     return noMessageAlert;
@@ -63,6 +63,8 @@ async function saveCommitSync (files: string) {
   await vscode.commands.executeCommand("git.commitAll");
   await vscode.commands.executeCommand("git.push");
   
+  // FIXME: Should clear commit message if there were no changes and it auto-generated anyway.
+  // For some reason it doesn't work (no reason why)
   setCommitMsg(repo, "");
 
 }
