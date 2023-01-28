@@ -11,7 +11,9 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}"
+        "--disable-extensions",
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--install-extension michaelcurrin.auto-commit-msg"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "preLaunchTask": "npm: watch"
