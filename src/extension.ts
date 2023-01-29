@@ -53,11 +53,8 @@ async function saveCommitSync (files: string) {
     return noMessageAlert;
   }
 
-  // Refresh repository to detect changes. Why not executeCommand("git.refresh"); ? Because that
-  // might not do it for the repo we want it to, and this is the only line of code written in the
-  // function anyway so it doesn't matter. Point is it's *probably* better. Not willing to check
-  // and it doesn't even matter.
-  await repo.status();
+  // Refresh repository to detect changes. 
+  // Don't do git.refresh command because it *might* not be repository specific.
 
   await vscode.commands.executeCommand("git.stageAll");
   await vscode.commands.executeCommand("git.commitAll");
