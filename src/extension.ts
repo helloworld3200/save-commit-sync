@@ -2,7 +2,7 @@
  * Extension module.
  */
 import * as vscode from "vscode";
-import { getGitExtension,  getCommitMsg} from "./gitExtension";
+import { getGitExtension,  getCommitMsg, setCommitMsg} from "./gitExtension";
 
 async function helloWorldTest (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Hello, world!");
@@ -22,6 +22,15 @@ async function saveCommitSync (files: string) {
   
   vscode.window.showInformationMessage("Saving, comitting and syncing...");
   vscode.commands.executeCommand("workbench.view.scm");
+
+  const git = await getGitExtension()!;
+  const repo = await git.repositories[0];
+  
+  const config = vscode.workspace.getConfiguration("saveCommitSync");
+  const autofill = config.get("autofillCommitMessageWhenBoxIsEmpty");
+  const gitCommitMsg = await getCommitMsg(repo);
+  const messageIsEmpty = gitCommitMsg === "";
+  const noMessageAlert = "No commit message was provided. If you want to autofill the commit message, enable it in settings.";
   
   if (files === "multi") {
     await vscode.workspace.saveAll();
@@ -30,32 +39,29 @@ async function saveCommitSync (files: string) {
     await vscode.commands.executeCommand("workbench.action.files.save");
   }
 
-  const git = await getGitExtension()!;
-  const repo = await git.repositories[0];
-  
-  const autofill = vscode.workspace.getConfiguration("saveCommitSync");
-  const status = autofill.get("autofillCommitMessage");
-  let gitCommitMsg = await getCommitMsg(repo);
-  if (status) {
+  if (messageIsEmpty && autofill) {
     await vscode.commands.executeCommand("commitMsg.autofill");
+
+    // NOTE: This code is probably unecessary but I'm keeping it here if something does break.
+    //gitCommitMsg = await getCommitMsg(repo);
+
+  } else if (messageIsEmpty && !autofill) {
+    vscode.window.showErrorMessage(noMessageAlert);
+    return noMessageAlert;
   }
-  else if (gitCommitMsg === "") {
-    const message = "No commit message was provided.";
-    vscode.window.showInformationMessage(message);
-    return message;
-  }
-  
-  console.debug(git.repositories.length);
-  const repoStatus = await repo.status();
-  gitCommitMsg = await getCommitMsg(repo);
-  while (gitCommitMsg === "") {
-    const currentCommitMsg = await getCommitMsg(repo);
-  }
+
+  // Refresh repository to detect changes. 
+  // Don't do git.refresh command because it *might* not be repository specific.
+  await repo.status();
 
   await vscode.commands.executeCommand("git.stageAll");
   await vscode.commands.executeCommand("git.commitAll");
   await vscode.commands.executeCommand("git.push");
   
+  // FIXME: Should clear commit message if there were no changes and it auto-generated anyway.
+  // For some reason it doesn't work (no reason why)
+  setCommitMsg(repo, "");
+
 }
 
 // Checks if user has selected configuration to save single file and runs corresponding function.
