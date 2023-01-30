@@ -55,6 +55,7 @@ async function saveCommitSync (files: string) {
 
   // Refresh repository to detect changes. 
   // Don't do git.refresh command because it *might* not be repository specific.
+  await repo.status();
 
   await vscode.commands.executeCommand("git.stageAll");
   await vscode.commands.executeCommand("git.commitAll");
