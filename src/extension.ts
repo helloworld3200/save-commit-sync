@@ -2,7 +2,7 @@
  * Extension module.
  */
 import * as vscode from "vscode";
-import { getGitExtension,  getCommitMsg} from "./gitExtension";
+import { getGitExtension,  getCommitMsg, setCommitMsg} from "./gitExtension";
 
 async function helloWorldTest (uri?: vscode.Uri) {
   vscode.window.showInformationMessage("Hello, world!");
@@ -28,7 +28,7 @@ async function saveCommitSync (files: string) {
   
   const config = vscode.workspace.getConfiguration("saveCommitSync");
   const autofill = config.get("autofillCommitMessageWhenBoxIsEmpty");
-  let gitCommitMsg = await getCommitMsg(repo);
+  const gitCommitMsg = await getCommitMsg(repo);
   const messageIsEmpty = gitCommitMsg === "";
   const noMessageAlert = "No commit message was provided. If you want to autofill the commit message, enable it in settings.";
   
@@ -41,20 +41,29 @@ async function saveCommitSync (files: string) {
 
   if (messageIsEmpty && autofill) {
     await vscode.commands.executeCommand("commitMsg.autofill");
-    const repoStatus = await repo.status();
-    gitCommitMsg = await getCommitMsg(repo);
-    while (gitCommitMsg === "") {
-      const currentCommitMsg = await getCommitMsg(repo);
-    }
+
+    // NOTE: This code is probably unecessary but I'm keeping it here if something does break.
+    //gitCommitMsg = await getCommitMsg(repo);
+    //while (gitCommitMsg === "") {
+    //  gitCommitMsg = await getCommitMsg(repo);
+    //}
+
   } else if (messageIsEmpty && !autofill) {
-    vscode.commands.executeCommand(noMessageAlert);
+    vscode.window.showErrorMessage(noMessageAlert);
     return noMessageAlert;
   }
+
+  // Refresh repository to detect changes. 
+  // Don't do git.refresh command because it *might* not be repository specific.
 
   await vscode.commands.executeCommand("git.stageAll");
   await vscode.commands.executeCommand("git.commitAll");
   await vscode.commands.executeCommand("git.push");
   
+  // FIXME: Should clear commit message if there were no changes and it auto-generated anyway.
+  // For some reason it doesn't work (no reason why)
+  setCommitMsg(repo, "");
+
 }
 
 // Checks if user has selected configuration to save single file and runs corresponding function.
