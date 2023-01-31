@@ -156,6 +156,11 @@
           "type": "boolean",
           "default": true,
           "description": "Autofill commit message using MichaelCurrin/auto-commit-msg when empty"
+        },
+        "saveCommitSync.saveCommitSyncOnClosingVSCode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Save all, commit and sync when VS Code is closed automatically"
         }
       }
     }

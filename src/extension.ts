@@ -81,6 +81,15 @@ async function saveSingleCommitSync (uri?: vscode.Uri) {
   saveCommitSync("single");
 }
 
+async function deactivateSaveAllCommitSyncCheck () {
+  const config = await vscode.workspace.getConfiguration("saveCommitSync");
+  const saveCommitSyncOnClosingVSCode = await config.get("saveCommitSyncOnClosingVSCode");
+  if (saveCommitSyncOnClosingVSCode) {
+    saveAllCommitSync();
+  }
+  return saveCommitSyncOnClosingVSCode;
+}
+
 /**
  * Set up the extension activation.
  *
@@ -118,6 +127,6 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(saveCommitSyncCheckCommand);
 }
 
-// prettier-ignore
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-export function deactivate() { }
+export function deactivate() { 
+  deactivateSaveAllCommitSyncCheck();
+}
