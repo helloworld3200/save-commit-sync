@@ -57,10 +57,6 @@ async function saveCommitSync (files: string) {
   await vscode.commands.executeCommand("git.stageAll");
   await vscode.commands.executeCommand("git.commitAll");
   await vscode.commands.executeCommand("git.push");
-  
-  // FIXME: Should clear commit message if there were no changes and it auto-generated anyway.
-  // For some reason it doesn't work (no reason why)
-  setCommitMsg(repo, "");
 
 }
 
@@ -91,7 +87,7 @@ async function saveSingleCommitSync (uri?: vscode.Uri) {
  * The autofill command as configured in `package.json` will be triggered
  * and run the autofill logic for a repo.
  */
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {  
 
   // Disposable hello world test
 
