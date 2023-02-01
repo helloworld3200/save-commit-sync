@@ -84,9 +84,11 @@ async function saveSingleCommitSync (uri?: vscode.Uri) {
 async function deactivateSaveAllCommitSyncCheck () {
   const config = await vscode.workspace.getConfiguration("saveCommitSync");
   const saveCommitSyncOnClosingVSCode = await config.get("saveCommitSyncOnClosingVSCode");
+
   if (saveCommitSyncOnClosingVSCode) {
     saveAllCommitSync();
   }
+  
   return saveCommitSyncOnClosingVSCode;
 }
 
