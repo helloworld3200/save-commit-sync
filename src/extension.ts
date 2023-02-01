@@ -26,8 +26,8 @@ async function saveCommitSync (files: string) {
   const git = await getGitExtension()!;
   const repo = await git.repositories[0];
   
-  const config = vscode.workspace.getConfiguration("saveCommitSync");
-  const autofill = config.get("autofillCommitMessageWhenBoxIsEmpty");
+  const config = await vscode.workspace.getConfiguration("saveCommitSync");
+  const autofill = await config.get("autofillCommitMessageWhenBoxIsEmpty");
   const gitCommitMsg = await getCommitMsg(repo);
   const messageIsEmpty = gitCommitMsg === "";
   const noMessageAlert = "No commit message was provided. If you want to autofill the commit message, enable it in settings.";
@@ -129,6 +129,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(saveCommitSyncCheckCommand);
 }
 
-export async function deactivate() { 
+export async function deactivate() {
+  console.debug("In deactivation");
   await deactivateSaveAllCommitSyncCheck();
 }
