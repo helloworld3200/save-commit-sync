@@ -63,8 +63,8 @@ async function saveCommitSync (files: string) {
 // Checks if user has selected configuration to save single file and runs corresponding function.
 
 async function saveCommitSyncCheck (uri?: vscode.Uri) {
-  const status = vscode.workspace.getConfiguration("saveCommitSync");
-  const value = status.get("saveCommitAndSyncButtonSavesSingleFile");
+  const status = await vscode.workspace.getConfiguration("saveCommitSync");
+  const value = await status.get("saveCommitAndSyncButtonSavesSingleFile");
   if (value) {
     saveSingleCommitSync(uri);
   }
@@ -74,11 +74,11 @@ async function saveCommitSyncCheck (uri?: vscode.Uri) {
 }
 
 async function saveAllCommitSync (uri?: vscode.Uri) {
-  saveCommitSync("multi");
+  await saveCommitSync("multi");
 }
 
 async function saveSingleCommitSync (uri?: vscode.Uri) {
-  saveCommitSync("single");
+  await saveCommitSync("single");
 }
 
 async function deactivateSaveAllCommitSyncCheck () {
