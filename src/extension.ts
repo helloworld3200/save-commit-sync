@@ -86,9 +86,9 @@ async function deactivateSaveAllCommitSyncCheck () {
   const saveCommitSyncOnClosingVSCode = await config.get("saveCommitSyncOnClosingVSCode");
 
   if (saveCommitSyncOnClosingVSCode) {
-    saveAllCommitSync();
+    await saveAllCommitSync();
   }
-  
+
   return saveCommitSyncOnClosingVSCode;
 }
 
