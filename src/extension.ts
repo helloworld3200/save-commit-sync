@@ -129,6 +129,6 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(saveCommitSyncCheckCommand);
 }
 
-export function deactivate() { 
-  deactivateSaveAllCommitSyncCheck();
+export async function deactivate() { 
+  await deactivateSaveAllCommitSyncCheck();
 }
