@@ -79,13 +79,7 @@
     "color": "#f0efe7",
     "theme": "light"
   },
-  "activationEvents": [
-    "onCommand:saveCommitSync.autofill",
-    "onCommand:saveCommitSync.helloWorldTest",
-    "onCommand:saveCommitSync.saveCommitSyncCommand",
-    "onCommand:saveCommitSync.saveSingleCommitSyncCommand",
-    "onCommand:saveCommitSync.saveCommitSyncCheckCommand"
-  ],
+  "activationEvents": [],
   "extensionDependencies": [
     "michaelcurrin.auto-commit-msg"
   ],
