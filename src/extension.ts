@@ -81,17 +81,6 @@ async function saveSingleCommitSync (uri?: vscode.Uri) {
   await saveCommitSync("single");
 }
 
-async function deactivateSaveAllCommitSyncCheck () {
-  const config = await vscode.workspace.getConfiguration("saveCommitSync");
-  const saveCommitSyncOnClosingVSCode = await config.get("saveCommitSyncOnClosingVSCode");
-
-  if (saveCommitSyncOnClosingVSCode) {
-    await saveAllCommitSync();
-  }
-
-  return saveCommitSyncOnClosingVSCode;
-}
-
 /**
  * Set up the extension activation.
  *
