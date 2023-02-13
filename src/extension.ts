@@ -19,19 +19,23 @@ async function sayNo () {
 // Saves all files, autofills, commits all and syncs changes. For utility purposes.
 
 async function saveCommitSync (files: string) {
-  
-  vscode.window.showInformationMessage("Saving, comitting and syncing...");
-  vscode.commands.executeCommand("workbench.view.scm");
 
   const git = await getGitExtension()!;
   const repo = await git.repositories[0];
   
   const config = await vscode.workspace.getConfiguration("saveCommitSync");
+  const showInfoMsgs = await config.get("saveCommitSync.sendMessageOnCommand");
   const autofill = await config.get("autofillCommitMessageWhenBoxIsEmpty");
   const gitCommitMsg = await getCommitMsg(repo);
   const messageIsEmpty = gitCommitMsg === "";
   const noMessageAlert = "No commit message was provided. If you want to autofill the commit message, enable it in settings.";
-  
+
+  if (showInfoMsgs) {
+    vscode.window.showInformationMessage("Saving, comitting and syncing...");
+  }
+
+  vscode.commands.executeCommand("workbench.view.scm");
+
   if (files === "multi") {
     await vscode.workspace.saveAll();
   }
@@ -46,7 +50,9 @@ async function saveCommitSync (files: string) {
     //gitCommitMsg = await getCommitMsg(repo);
 
   } else if (messageIsEmpty && !autofill) {
-    vscode.window.showErrorMessage(noMessageAlert);
+    if (showInfoMsgs) {
+      vscode.window.showErrorMessage(noMessageAlert);
+    }
     return noMessageAlert;
   }
 
