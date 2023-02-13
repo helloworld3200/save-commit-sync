@@ -160,6 +160,11 @@
             "type": "boolean",
             "default": "false",
             "description": "Save commit sync on all repositories, not just single."
+        },
+        "saveCommitSync.sendMessageOnCommand": {
+          "type": "boolean",
+          "default": "true",
+          "description": "Send an information message when it does something like save commit sync."
         }
       }
     }
