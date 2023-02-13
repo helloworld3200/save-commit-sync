@@ -155,6 +155,11 @@
           "type": "boolean",
           "default": false,
           "description": "Save all, commit and sync when VS Code is closed automatically"
+        },
+          "saveCommitSync.saveCommitSyncOnMultipleRepositories": {
+            "type": "boolean",
+            "default": "false",
+            "description": "Save commit sync on all repositories, not just single."
         }
       }
     }
